@@ -4,14 +4,15 @@ on:
   push:
     branches: [ "main" ]
 
+permissions:
+  contents: write
+
 jobs:
-  
   build-and-push:
     
     runs-on: ubuntu-latest
     
     steps:
-      
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -35,4 +36,6 @@ jobs:
           
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pratica-devops-python:latest, ${{ secrets.DOCKERHUB_USERNAME }}/pratica-devops-python:${{ steps.tag.outputs.new_tag }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/pratica-devops-python:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/pratica-devops-python:${{ steps.tag.outputs.new_tag }}
